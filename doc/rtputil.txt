@@ -1,0 +1,182 @@
+*rtputil.txt*	Utilities for 'runtimepath'.
+
+Version: 0.1.0
+Author : thinca <thinca+vim@gmail.com>
+License: Creative Commons Attribution 2.1 Japan License
+         <http://creativecommons.org/licenses/by/2.1/jp/deed.en>
+
+==============================================================================
+CONTENTS					*rtputil-contents*
+
+INTRODUCTION			|rtputil-introduction|
+USAGE				|rtputil-usage|
+INTERFACE			|rtputil-interface|
+  FUNCTIONS			  |rtputil-functions|
+  RTP OBJECT			  |rtputil-object|
+CUSTOMIZING			|rtputil-customizing|
+PATTERN				|rtputil-pattern|
+LIMITATIONS			|rtputil-limitations|
+CHANGELOG			|rtputil-changelog|
+
+
+==============================================================================
+INTRODUCTION					*rtputil-introduction*
+
+*rtputil* is a Vim plugin to provide utility functions for 'runtimepath'.
+
+
+Requirements:
+- Vim 7.3 or later
+
+Latest version:
+https://github.com/thinca/vim-rtputil
+
+
+
+==============================================================================
+USAGE						*rtputil-usage*
+
+>
+	" Simple usage: include your plugins placed in "~/.vim/bundle".
+	call rtputil#bundle()
+
+	" OO Interface.
+	call rtputil#new().reset().bundle().append('~/myvimruntime').apply()
+<
+
+
+
+==============================================================================
+INTERFACE					*rtputil-interface*
+
+------------------------------------------------------------------------------
+FUNCTIONS					*rtputil-functions*
+
+rtputil#bundle([{name} [, {ignore-pattern}]])	*rtputil#bundle()*
+	Search a directory named {name} in each 'runtimepath', and
+	append its subdirectory after itself of 'runtimepath'.
+	If {name} is omitted, "bundle" is used.
+	See |rtputil#subdirectories()| about {ignore-pattern}.
+
+rtputil#append({path} [, {pos}])		*rtputil#append()*
+	Append {path} to 'runtimepath'.  {path} must be an existing directory.
+	{path} accepts a list of paths.
+	{pos} is a number or a pattern(|rtputil-pattern|).
+	When a number, {path} is inserted to before of {pos}.  A negative
+	{pos} is also possible, see |list-index|.
+	When a pattern, {path} is inserted to before of a path that matches to
+	the pattern in first.
+	If {pos} is omitted, '{"default": 1}' is used.
+
+rtputil#remove({pattern})			*rtputil#remove()*
+	Remove paths that matches to {pattern} from 'runtimepath'.
+	See |rtputil-pattern| about {pattern}.
+
+rtputil#helptags([{verbose}])			*rtputil#helptags()*
+	Do |:helptags| for all of 'runtimepath'.  However, the directory that
+	can not be written is skipped.
+	If {verbose} is true, print the name of processed directory.
+
+rtputil#split([{runtimepath}])			*rtputil#split()*
+	Split a {runtimepath} to a list.  If {runtimepath} is omitted, the
+	current value of 'runtimepath' is used.
+
+rtputil#join({list})				*rtputil#join()*
+	Join a list of paths.  The paths are escaped correctly as
+	'runtimepath'.
+
+						*rtputil#subdirectories()*
+rtputil#subdirectories({basedir} [, {ignore-pattern}])
+	Get the subdirectories of {basedir} except what matches to
+	{ignore-pattern}.  The default value of {ignore-pattern} is
+	|g:rtputil#ignore_pattern|.
+	See |rtputil-pattern| about {ignore-pattern}.
+
+rtputil#default()				*rtputil#default()*
+	Get the default value of 'runtimepath'.
+
+rtputil#new([{runtimepath}])			*rtputil#new()*
+	Create a new RTP object(|rtputil-object|).
+
+
+------------------------------------------------------------------------------
+RTP OBJECT					*rtputil-object*
+
+RTP object is to operate 'runtimepath' by oo interface.  This object has a
+structured value of runtimepath, and operate it.
+
+The object has following functions.
+
+bundle([{name} [, {ignore-pattern}]])		*rtputil-object-bundle()*
+append({path} [, {pos}])			*rtputil-object-append()*
+remove({pattern})				*rtputil-object-remove()*
+helptags([{verbose}])				*rtputil-object-helptags()*
+	These are same as rtputil#{func}, but applies to the object itself.
+	Note that helptags() updates "tags" file directly.
+
+reset()						*rtputil-object-reset()*
+	Reset to the default value of 'runtimepath'.
+	NOTE: You can reset 'runtimepath' directly with following command: >
+	:set runtimepath&
+
+to_list()					*rtputil-object-to_list()*
+	Return the value that converted to a list of paths.
+
+to_runtimepath()			*rtputil-object-to_runtimepath()*
+	Return a string that converted to 'runtimepath' format.
+
+apply()						*rtputil-object-apply()*
+	Apply the value of this object to 'runtimepath'.
+
+The function where the return value is not described clearly returns an object
+of itself.
+
+
+
+==============================================================================
+CUSTOMIZING					*rtputil-customizing*
+
+rtputil#ignore_pattern				*rtputil#ignore_pattern*
+	The default value of {ignore-pattern} of the argument of
+	|rtputil#subdirectories()|, |rtputil#bundle()|, and
+	|rtputil-object-bundle()|.
+	The default value of this is ""(empty string).
+
+
+
+==============================================================================
+PATTERN						*rtputil-pattern*
+
+A pattern is the way of specifying paths.  The pattern is a string or a
+dictionary.
+If a pattern is a string, it is a regexp pattern that matches to the
+tail(|::t|) of the path.
+If a pattern is a dictionary,  it has following members.
+"path":		A regexp that matches to the path.
+"normalized":	A regexp that matches to the normalized path.
+		- Fullpath.
+		- The path separators are "/".
+		- The last of character is not path separator.
+"after":	Does the path include "after" directory?
+"default":	Is this a runtimepath of default?
+All members are optional.  When the existing member matches everything, it
+matches.
+
+
+
+==============================================================================
+LIMITATIONS					*rtputil-limitations*
+
+- Can not treat a path that includes glob("*").
+
+
+
+==============================================================================
+CHANGELOG					*rtputil-changelog*
+
+0.1.0	2011-02-15
+	- Initial version.
+
+
+==============================================================================
+vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl
