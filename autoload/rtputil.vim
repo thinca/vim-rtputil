@@ -68,7 +68,6 @@ endfunction
 
 function! s:RTP.append(path, ...)  " {{{2
   let paths = type(a:path) == type([]) ? copy(a:path) : [a:path]
-  let tail = a:0 && a:1
   let pos = a:0 ? a:1 : {'default': 1}
   let new_entries = map(paths, 's:build_entry(v:val)')
   call filter(new_entries, '!has_key(self._index, v:val.normalized)')
