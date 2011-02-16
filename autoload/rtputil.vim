@@ -173,8 +173,8 @@ function! rtputil#new(...)  " {{{2
 endfunction
 
 function! rtputil#bundle(...)  " {{{2
-  let name = 1 <= a:0 ? a:1 : 'bundle'
-  let pattern = 2 <= a:0 ? a:1 : g:rtputil#ignore_pattern
+  let name    = get(a:000, 0, 'bundle')
+  let pattern = get(a:000, 1, g:rtputil#ignore_pattern)
   return rtputil#new().bundle(name, pattern).apply()
 endfunction
 
