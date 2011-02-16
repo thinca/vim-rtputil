@@ -49,7 +49,7 @@ function! s:RTP.initialize(rtp)  " {{{2
 endfunction
 
 function! s:RTP.bundle(...)  " {{{2
-  let name = 1 <= a:0 ? a:1 : 'bundle'
+  let name = a:0 ? a:1 : 'bundle'
   let pattern = 2 <= a:0 ? a:2 : g:rtputil#ignore_pattern
   let list = []
   for entry in self._entries
@@ -210,7 +210,7 @@ function! rtputil#join(list)  " {{{2
 endfunction
 
 function! rtputil#subdirectories(path, ...)  " {{{2
-  let pattern = 1 <= a:0 ? a:1 : g:rtputil#ignore_pattern
+  let pattern = a:0 ? a:1 : g:rtputil#ignore_pattern
   let dirs = split(glob(a:path . s:path_separator() . '*', 1), "\n")
   return filter(dirs, '!s:match(v:val, pattern)')
 endfunction
