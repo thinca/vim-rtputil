@@ -136,7 +136,7 @@ of itself.
 ==============================================================================
 CUSTOMIZING					*rtputil-customizing*
 
-rtputil#ignore_pattern				*rtputil#ignore_pattern*
+g:rtputil#ignore_pattern			*g:rtputil#ignore_pattern*
 	The default value of {ignore-pattern} of the argument of
 	|rtputil#subdirectories()|, |rtputil#bundle()|, and
 	|rtputil-object-bundle()|.
