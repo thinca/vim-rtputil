@@ -1,6 +1,6 @@
 *rtputil.txt*	Utilities for 'runtimepath'.
 
-Version: 0.1.0
+Version: 0.1.1
 Author : thinca <thinca+vim@gmail.com>
 License: Creative Commons Attribution 2.1 Japan License
          <http://creativecommons.org/licenses/by/2.1/jp/deed.en>
@@ -184,7 +184,7 @@ LIMITATIONS					*rtputil-limitations*
 ==============================================================================
 CHANGELOG					*rtputil-changelog*
 
-x.x.x	xxxx-xx-xx
+0.1.1	2011-04-05
 	- Added |rtputil#unify()|.
 
 0.1.0	2011-02-15
