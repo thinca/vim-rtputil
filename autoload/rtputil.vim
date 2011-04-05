@@ -98,6 +98,14 @@ function! s:RTP.remove(pattern)  " {{{2
   return self._update_index()
 endfunction
 
+function! s:RTP.unify(mods, ...)  " {{{2
+  let sep = a:0 ? a:1 : s:path_separator()
+  for entry in self._entries
+    let entry.path = s:unify(entry.path, a:mods, sep)
+  endfor
+  return self
+endfunction
+
 function! s:RTP.helptags(...)  " {{{2
   let verbose = a:0 && a:1
   for dir in self.to_list()
@@ -187,6 +195,11 @@ endfunction
 " Remove the directory from runtimepath.
 function! rtputil#remove(path)  " {{{2
   return rtputil#new().remove(a:path).apply()
+endfunction
+
+" Unify the form of each path.
+function! rtputil#unify(mods, ...)  " {{{2
+  return rtputil#new().unify(a:mods, a:0 ? a:1 : s:path_separator())
 endfunction
 
 " Do :helptags for all of 'runtimepath'.

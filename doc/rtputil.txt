@@ -72,6 +72,10 @@ rtputil#remove({pattern})			*rtputil#remove()*
 	Remove paths that matches to {pattern} from 'runtimepath'.
 	See |rtputil-pattern| about {pattern}.
 
+rtputil#unify({mods} [, {path-separator}]	*rtputil#unify()*
+	Unify the form of each path.  {mods} is |filename-modifiers|.
+	If {path-separator} is omitted, the default value of platform is used.
+
 rtputil#helptags([{verbose}])			*rtputil#helptags()*
 	Do |:helptags| for all of 'runtimepath'.  However, the directory that
 	can not be written is skipped.
@@ -110,6 +114,7 @@ The object has following functions.
 bundle([{name} [, {ignore-pattern}]])		*rtputil-object-bundle()*
 append({path} [, {pos}])			*rtputil-object-append()*
 remove({pattern})				*rtputil-object-remove()*
+unify({mods} [, {path-separator}]		*rtputil-object-unify()*
 helptags([{verbose}])				*rtputil-object-helptags()*
 	These are same as rtputil#{func}, but applies to the object itself.
 	Note that helptags() updates "tags" file directly.
@@ -173,6 +178,9 @@ LIMITATIONS					*rtputil-limitations*
 
 ==============================================================================
 CHANGELOG					*rtputil-changelog*
+
+x.x.x	xxxx-xx-xx
+	- Added |rtputil#unify()|.
 
 0.1.0	2011-02-15
 	- Initial version.
