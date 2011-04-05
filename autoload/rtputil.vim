@@ -284,13 +284,12 @@ endfunction
 " - Unify the path separators.
 " - Modify the path form with {mods}.
 " - Remove the path separator of tail.
-function! s:unify(path, mods, ...)  " {{{2
-  let sep = a:0 ? a:1 : s:path_separator()
+function! s:unify(path, mods, sep)  " {{{2
   if type(a:path) == type([])
-    return map(a:path, 's:unify(v:val, a:mods, sep)')
+    return map(a:path, 's:unify(v:val, a:mods, a:sep)')
   endif
 
-  let sep = escape(sep, '\')
+  let sep = escape(a:sep, '\')
   let path = a:path
   let path = fnamemodify(path, a:mods)
   let path = substitute(path, s:path_sep_pattern, sep, 'g')
