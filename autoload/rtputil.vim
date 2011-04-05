@@ -154,11 +154,7 @@ function! s:RTP.apply()  " {{{2
 endfunction
 
 function! s:RTP._update_index()  " {{{2
-  let index = {}
-  for e in self._entries
-    let index[e.normalized] = 1
-  endfor
-  let self._index = index
+  let self._index = s:list2dict(map(copy(self._entries), 'v:val.normalized'))
   return self
 endfunction
 
