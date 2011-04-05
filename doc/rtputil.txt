@@ -96,6 +96,11 @@ rtputil#subdirectories({basedir} [, {ignore-pattern}])
 	|g:rtputil#ignore_pattern|.
 	See |rtputil-pattern| about {ignore-pattern}.
 
+rtputil#userdir()				*rtputil#userdir()*
+	Get the user's runtimepath.  This meets the following requirements.
+	1. One of the default runtimepath.
+	2. The parent directory is home directory($HOME).
+
 rtputil#default()				*rtputil#default()*
 	Get the default value of 'runtimepath'.
 
