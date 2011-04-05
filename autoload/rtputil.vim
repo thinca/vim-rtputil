@@ -310,24 +310,6 @@ endfunction
 
 let s:path_sep_pattern = exists('+shellslash') ? '[\\/]' : '/'
 
-" Remove duplicates from a list.
-" - string only.
-" - can not treat a empty string.
-function! s:uniq(list)  " {{{2
-  let i = 0
-  let len = len(a:list)
-  let seen = {}
-  while i < len
-    if has_key(seen, a:list[i])
-      call remove(a:list, i)
-    else
-      let seen[a:list[i]] = 1
-      let i += 1
-    endif
-  endwhile
-  return a:list
-endfunction
-
 function! s:echoerr(mes)  " {{{2
   echohl ErrorMsg
   for m in split(a:mes, "\n")
