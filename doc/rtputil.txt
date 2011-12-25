@@ -80,6 +80,7 @@ rtputil#helptags([{verbose}])			*rtputil#helptags()*
 	Do |:helptags| for all of 'runtimepath'.  However, the directory that
 	can not be written is skipped.
 	If {verbose} is true, print the name of processed directory.
+	If {verbose} is omitted, false value is used.
 
 rtputil#split([{runtimepath}])			*rtputil#split()*
 	Split a {runtimepath} to a list.  If {runtimepath} is omitted, the
