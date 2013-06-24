@@ -287,6 +287,7 @@ function! s:unify(path, mods, sep)  " {{{2
 
   let sep = escape(a:sep, '\')
   let path = a:path
+  let path = split(expand(path), '\n')[0]
   let path = fnamemodify(path, a:mods)
   let path = substitute(path, s:path_sep_pattern, sep, 'g')
   let path = substitute(path, sep . '$', '', '')
