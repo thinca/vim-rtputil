@@ -163,7 +163,7 @@ function! s:build_entry(path)  " {{{2
   return {
   \   'path': a:path,
   \   'normalized': normalized,
-  \   'after': isdirectory(normalized . '/after'),
+  \   'after': isdirectory(normalized . s:path_separator() . 'after'),
   \   'default': has_key(s:default_dict, normalized),
   \ }
 endfunction
