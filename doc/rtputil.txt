@@ -129,6 +129,9 @@ reset()						*rtputil-object-reset()*
 	Reset to the default value of 'runtimepath'.
 	NOTE: You can reset 'runtimepath' directly with following command: >
 	:set runtimepath&
+<
+	This is equivalent to: >
+	:call obj.reset().apply()
 
 to_list()					*rtputil-object-to_list()*
 	Return the value that converted to a list of paths.
